@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "sendblue-mcp"
+version = "0.1.0"
+description = "MCP server for Sendblue SMS/iMessage API"
+authors = ["mVara <jack@mvara.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastmcp = "^2.0.0"
+httpx = "^0.28.1"
+pydantic = "^2.10.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
