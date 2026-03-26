@@ -6,7 +6,7 @@ Your agent needs to send campaign messages and check for replies. Traditional we
 
 ```python
 # Send a message
-send_sms(number="+16029099450", content="Campaign message here")
+send_sms(number="+15551234567", content="Campaign message here")
 
 # Check for replies (no webhooks needed)
 list_messages(is_outbound=False, limit=10)
@@ -61,10 +61,10 @@ Create `~/.keys/sendblue.json`:
 {
   "api_key": "your_sendblue_api_key",
   "secret_key": "your_sendblue_secret_key",
-  "from_number": "+16452468235",
+  "from_number": "+15559876543",
   "contacts": {
-    "jack": "+16029099450",
-    "rich": "+13109898178"
+    "alice": "+15551234567",
+    "bob": "+15559998888"
   }
 }
 ```
@@ -117,31 +117,31 @@ Claude Desktop (`~/Library/Application Support/Claude/claude_desktop_config.json
 
 ```python
 send_sms(
-    number="+16029099450",
+    number="+15551234567",
     content="Test from Sendblue MCP! 🚀"
 )
-# Returns: {"status": "QUEUED", "message_handle": "...", "from_number": "+16452468235"}
+# Returns: {"status": "QUEUED", "message_handle": "...", "from_number": "+15559876543"}
 ```
 
 **Check for replies:**
 
 ```python
 list_messages(is_outbound=False, limit=10)
-# Returns: [{"content": "Interested!", "from_number": "+16029099450", ...}, ...]
+# Returns: [{"content": "Interested!", "from_number": "+15551234567", ...}, ...]
 ```
 
 **Get your contacts:**
 
 ```python
 get_contacts()
-# Returns: [{"name": "jack", "number": "+16029099450"}, {"name": "rich", "number": "+13109898178"}]
+# Returns: [{"name": "alice", "number": "+15551234567"}, {"name": "bob", "number": "+15559998888"}]
 ```
 
 **Check if a number supports iMessage:**
 
 ```python
-evaluate_service_type(number="+16029099450")
-# Returns: {"number": "+16029099450", "service": "iMessage"}
+evaluate_service_type(number="+15551234567")
+# Returns: {"number": "+15551234567", "service": "iMessage"}
 ```
 
 ## How it works
@@ -168,7 +168,7 @@ Messages are sent via Sendblue's REST API. Replies are retrieved by polling `/ap
 Send an SMS or iMessage via Sendblue.
 
 **Args:**
-- `number` (str): Phone number in E.164 format (e.g., `+16029099450`)
+- `number` (str): Phone number in E.164 format (e.g., `+15551234567`)
 - `content` (str): Message text to send
 - `send_style` (str, optional): Message style - `'invisible'`, `'gentle'`, `'loud'`, `'slam'`
 
@@ -177,8 +177,8 @@ Send an SMS or iMessage via Sendblue.
 {
   "status": "QUEUED",
   "message_handle": "35d2bd01-5fe0-4ee3-a9fd-a61231e0ddd4",
-  "from_number": "+16452468235",
-  "to_number": "+16029099450",
+  "from_number": "+15559876543",
+  "to_number": "+15551234567",
   "date_sent": "2026-03-26T22:14:40.696Z"
 }
 ```
@@ -198,8 +198,8 @@ List recent messages (inbound or outbound). Polls Sendblue API without requiring
   "messages": [
     {
       "content": "Interested in learning more!",
-      "from_number": "+16029099450",
-      "to_number": "+16452468235",
+      "from_number": "+15551234567",
+      "to_number": "+15559876543",
       "is_outbound": false,
       "status": "RECEIVED",
       "date_sent": "2026-03-26T22:30:15.123Z"
@@ -215,8 +215,8 @@ Get list of saved contacts from credentials file.
 **Returns:**
 ```json
 [
-  {"name": "jack", "number": "+16029099450"},
-  {"name": "rich", "number": "+13109898178"}
+  {"name": "alice", "number": "+15551234567"},
+  {"name": "bob", "number": "+15559998888"}
 ]
 ```
 
@@ -246,7 +246,7 @@ Check if a number can receive iMessage or SMS.
 **Returns:**
 ```json
 {
-  "number": "+16029099450",
+  "number": "+15551234567",
   "service": "iMessage"
 }
 ```
