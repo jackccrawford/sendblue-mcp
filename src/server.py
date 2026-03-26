@@ -139,6 +139,48 @@ async def check_message_status(account_email: str, number: str) -> dict:
 
 
 @mcp.tool()
+async def list_messages(
+    limit: int = 10,
+    is_outbound: bool = False,
+    offset: int = 0
+) -> dict:
+    """
+    List recent messages (inbound or outbound).
+    
+    Polls Sendblue API for messages without requiring webhooks.
+    Use this to check for replies to your campaign messages.
+    
+    Args:
+        limit: Number of messages to retrieve (default: 10, max: 100)
+        is_outbound: False for received messages, True for sent messages
+        offset: Pagination offset (default: 0)
+    
+    Returns:
+        dict: List of messages with metadata
+    """
+    headers = {
+        "sb-api-key-id": API_KEY,
+        "sb-api-secret-key": SECRET_KEY
+    }
+    
+    params = {
+        "limit": min(limit, 100),  # Cap at 100
+        "offset": offset,
+        "is_outbound": str(is_outbound).lower()
+    }
+    
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"{BASE_URL}/api/v2/messages",
+            headers=headers,
+            params=params,
+            timeout=30.0
+        )
+        response.raise_for_status()
+        return response.json()
+
+
+@mcp.tool()
 async def evaluate_service_type(number: str) -> dict:
     """
     Check if a number can receive iMessage or SMS.
