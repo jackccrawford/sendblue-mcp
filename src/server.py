@@ -30,6 +30,7 @@ def load_credentials():
 CREDS = load_credentials()
 API_KEY = CREDS["api_key"]
 SECRET_KEY = CREDS["secret_key"]
+FROM_NUMBER = CREDS["from_number"]
 CONTACTS = CREDS.get("contacts", {})
 
 BASE_URL = "https://api.sendblue.co"
@@ -72,7 +73,8 @@ async def send_sms(number: str, content: str, send_style: Optional[str] = None) 
     
     payload = {
         "number": number,
-        "content": content
+        "content": content,
+        "from_number": FROM_NUMBER
     }
     
     if send_style:
