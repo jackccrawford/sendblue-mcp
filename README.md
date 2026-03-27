@@ -14,6 +14,14 @@ list_messages(is_outbound=False, limit=10)
 
 47 messages later, across sessions, your agent remembers the conversation context.
 
+## About Sendblue
+
+[Sendblue](https://sendblue.co) is the SMS/iMessage API that powers this server. They handle message delivery, phone number management, iMessage detection, and delivery status tracking. This MCP server is a wrapper — it connects your AI agent to Sendblue's REST API using polling instead of webhooks.
+
+You'll need a Sendblue account and API credentials to use this tool. Sign up at [sendblue.co](https://sendblue.co) and get your keys from the [dashboard](https://app.sendblue.co).
+
+**This project is not affiliated with Sendblue.** It's an independent open-source MCP server built on their public API.
+
 ## End-to-end: what this actually looks like
 
 **Monday — Campaign launch.** Your agent sends 50 outreach messages:
